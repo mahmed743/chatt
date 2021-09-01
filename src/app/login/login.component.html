@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="example-loading-shade"
+  *ngIf="isLoadingResults">
+<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+</div>
+  <mat-list>
+  <!-- <mat-card (click)="onSubmit(user.UserName)" *ngFor="let user of users">{{user.UserName}}</mat-card> -->
+  <mat-nav-list *ngFor="let user of users">
+    <mat-list-item >
+       <a matLine href="#">{{user.UserName}}</a>
+       <button mat-icon-button (click)="onSubmit(user.UserName)">
+          <mat-icon>chat</mat-icon>
+       </button>
+    </mat-list-item>
+  </mat-nav-list>
+
+
+  </mat-list>
+
+</div>
