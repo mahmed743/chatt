@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
-
+import * as $ from 'jquery';
 const config = {
   apiKey: "AIzaSyDB4mysiPy1VLYxUSXI40JZDNj-BeIT-yQ",
   authDomain: "chatangular-cce4d.firebaseapp.com",
@@ -22,4 +22,10 @@ export class AppComponent {
   constructor() {
     firebase.initializeApp(config);
   }
+  ngOnInit(){
+
+        $('#action_menu_btn').click(function(){
+            $('.action_menu').toggle();
+        });
+    }
 }

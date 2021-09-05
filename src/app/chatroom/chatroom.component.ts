@@ -4,6 +4,7 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
+import * as $ from 'jquery';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -63,6 +64,9 @@ export class ChatroomComponent implements OnInit {
     this.chatForm = this.formBuilder.group({
       'message' : [null, Validators.required]
     });
+     $('#action_menu_btn').click(function(){
+            $('.action_menu').toggle();
+        });
   }
 
   onFormSubmit(form: any) {

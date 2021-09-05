@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
-
+import * as $ from 'jquery';
 export const snapshotToArray = (snapshot: any) => {
   const returnArr = [];
 
@@ -37,6 +37,9 @@ export class RoomlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
+     $('#action_menu_btn').click(function(){
+            $('.action_menu').toggle();
+        });
   }
 
   enterChatRoom(roomname: string) {
@@ -52,6 +55,7 @@ export class RoomlistComponent implements OnInit {
     firebase.database().ref('roomusers/').orderByChild('roomname').equalTo(roomname).on('value', (resp: any) => {
       let roomuser = [];
       roomuser = snapshotToArray(resp);
+      console.log('tag', roomuser.find(x => x.nickname === this.nickname));
       const user = roomuser.find(x => x.nickname === this.nickname);
       if (user !== undefined) {
         const userRef = firebase.database().ref('roomusers/' + user.key);

@@ -54,24 +54,38 @@ export class LoginComponent implements OnInit {
     this.httpClient.get<any>('https://www.delmon-egate.com/api/MainUsers').subscribe(data => {
       console.log(data.value);
       this.users = data.value;
-      this.users.forEach(element => {
-        this.createUserRooms(element.UserName);
-      });
+      // this.users.forEach(element => {
+      //   this.createUserRooms(element.UserName);
+      // });
       this.isLoadingResults = false;
-    })
+    });
   }
   onSubmit(value) {
     this.nickname = value;
-    //  console.log(value);
     this.ref.orderByChild('nickname').equalTo(value).once('value', snapshot => {
       if (snapshot.exists()) {
         localStorage.setItem('nickname', value);
-        this.createUserRoom(value);
+        this.router.navigate(['/roomlist']);
       } else {
         const newUser = firebase.database().ref('users/').push();
         newUser.set(value);
         localStorage.setItem('nickname', value);
-        this.createUserRoom(value);
+        this.router.navigate(['/roomlist']);
+      }
+    });
+    //  console.log(value);
+  }
+   onFormSubmit(form: any) {
+    const login = form;
+    this.ref.orderByChild('nickname').equalTo(login.nickname).once('value', snapshot => {
+      if (snapshot.exists()) {
+        localStorage.setItem('nickname', login.nickname);
+        this.router.navigate(['/roomlist']);
+      } else {
+        const newUser = firebase.database().ref('users/').push();
+        newUser.set(login);
+        localStorage.setItem('nickname', login.nickname);
+        this.router.navigate(['/roomlist']);
       }
     });
   }
@@ -90,10 +104,14 @@ export class LoginComponent implements OnInit {
 
   createUserRooms(user) {
     const room = { roomname: user };
+    console.log('tag', 'enter');
+    console.log('tag', user);
     this.ref.orderByChild('roomname').equalTo(room.roomname).once('value', (snapshot: any) => {
       if (snapshot.exists()) {
+        console.log('tag', 'found');
         this.snackBar.open('Room name already exist!');
       } else {
+        console.log('tag', 'not found');
         const newRoom = firebase.database().ref('rooms/').push();
         newRoom.set(room);
       }

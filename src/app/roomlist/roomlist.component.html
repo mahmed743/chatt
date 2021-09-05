@@ -1,25 +1,45 @@
-<div class="example-container mat-elevation-z8">
-  <h3>{{nickname}} <button mat-flat-button (click)="logout()"><mat-icon>logout</mat-icon></button></h3>
-  <h2>Users List</h2>
-  <div class="example-loading-shade"
-       *ngIf="isLoadingResults">
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-  </div>
-  <div class="button-row">
-    <button mat-flat-button color="primary" [routerLink]="['/login']"><mat-icon>add</mat-icon></button>
-  </div>
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="rooms" class="example-table"
-           matSort matSortActive="roomname" matSortDisableClear matSortDirection="asc">
 
-      <!-- Room Name Column -->
-      <ng-container matColumnDef="roomname">
-        <th mat-header-cell *matHeaderCellDef>Room Name</th>
-        <td mat-cell *matCellDef="let row">{{row.roomname}}</td>
-      </ng-container>
+<div class="container-fluid h-50">
+  <div class="row justify-content-center h-100">
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="enterChatRoom(row.roomname)"></tr>
-    </table>
+<div class="col-md-4 col-xl-3 chat">
+  <div class="card mb-sm-3 mb-md-0 contacts_card">
+     <div class="card-header msg_head">
+          <div class="d-flex bd-highlight">
+            <div class="img_cont">
+              <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="rounded-circle user_img">
+              <span class="online_icon"></span>
+            </div>
+            <div class="user_info">
+              <span>{{nickname}}</span>
+            </div>
+          </div>
+          <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+          <div class="action_menu">
+            <ul>
+              <li (click)="logout()"><i class="fas fa-user-circle"></i> logout</li>
+
+            </ul>
+          </div>
+        </div>
+  <div class="card-body contacts_body">
+    <ul class="contacts">
+    <li *ngFor="let user of rooms" (click)="enterChatRoom(user.roomname)">
+      <div  class="d-flex bd-highlight">
+        <div class="img_cont">
+          <img src="https://therichpost.com/wp-content/uploads/2020/06/avatar2.png" class="rounded-circle user_img">
+          <span class="online_icon"></span>
+        </div>
+        <div class="user_info">
+          <span>{{user.roomname}}</span>
+          <!-- <p>{{user.roomname}} is online</p> -->
+        </div>
+      </div>
+    </li>
+  </ul>
   </div>
-</div>
+  <div class="card-footer"></div>
+</div></div>
+</div></div>
+
+
